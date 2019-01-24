@@ -10,6 +10,7 @@ import com.github.mikephil.charting.charts.LineChart;
 public class MainActivity extends AppCompatActivity {
 
     private LineChart accelerometerChart;
+    private LineChart gyroscopeChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +18,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.accelerometerChart = findViewById(R.id.accelerometerChart);
+        this.gyroscopeChart = findViewById(R.id.gyroscopeChart);
     }
 
     public void onBtnStartClick(View v) {
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         new Thread(new accelerometerListener(accelerometerChart, sensorManager));
+        new Thread(new gyroscopeListener(gyroscopeChart, sensorManager));
     }
 }
