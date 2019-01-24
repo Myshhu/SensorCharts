@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private LineChart accelerometerChart;
     private LineChart gyroscopeChart;
     private LineChart magneticFieldChart;
+    private LineChart lightPowerChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         this.accelerometerChart = findViewById(R.id.accelerometerChart);
         this.gyroscopeChart = findViewById(R.id.gyroscopeChart);
         this.magneticFieldChart = findViewById(R.id.magneticFieldChart);
+        this.lightPowerChart = findViewById(R.id.lightPowerChart);
     }
 
     public void onBtnStartClick(View v) {
@@ -28,5 +30,6 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new accelerometerListener(accelerometerChart, sensorManager));
         new Thread(new gyroscopeListener(gyroscopeChart, sensorManager));
         new Thread(new magneticFieldListener(magneticFieldChart, sensorManager));
+        new Thread(new lightPowerListener(lightPowerChart, sensorManager));
     }
 }

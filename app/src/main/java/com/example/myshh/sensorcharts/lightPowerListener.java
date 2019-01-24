@@ -13,25 +13,23 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 
-public class magneticFieldListener extends Thread implements SensorEventListener {
+public class lightPowerListener extends Thread implements SensorEventListener {
 
-    private LineChart magneticFieldChart;
+    private LineChart lightPowerChart;
 
-    magneticFieldListener(LineChart magneticFieldChart, SensorManager sensorManager) {
+    lightPowerListener(LineChart lightPowerChart, SensorManager sensorManager) {
 
-        this.magneticFieldChart = magneticFieldChart;
-        //Create lineDataSets for 3 axis from magnetic field sensor
-        LineDataSet lineDataSet1 = createSet(Color.GREEN, "x");
-        LineDataSet lineDataSet2 = createSet(Color.RED, "y");
-        LineDataSet lineDataSet3 = createSet(Color.BLUE, "z");
-        LineData lineData = new LineData(lineDataSet1, lineDataSet2, lineDataSet3);
+        this.lightPowerChart = lightPowerChart;
+        //Create lineDataSet for data from light sensor
+        LineDataSet lineDataSet1 = createSet(Color.MAGENTA, "Light");
+        LineData lineData = new LineData(lineDataSet1);
 
         //Set data to chart
-        magneticFieldChart.setData(lineData);
+        lightPowerChart.setData(lineData);
 
         //Register listener
         sensorManager.registerListener(this,
-                sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT),
                 SensorManager.SENSOR_DELAY_GAME);
     }
 
@@ -44,23 +42,21 @@ public class magneticFieldListener extends Thread implements SensorEventListener
         return set;
     }
 
-    //Function called when one of axis values has changed
+    //Function called when light power has changed
     @Override
     public void onSensorChanged(SensorEvent event) {
         //Get chart lineData
-        LineData data = magneticFieldChart.getData();
+        LineData data = lightPowerChart.getData();
 
         if(data != null) {
-            //Add new points to chart
+            //Add new point to chart
             data.addEntry(new Entry(data.getDataSetByIndex(0).getEntryCount(), event.values[0]), 0);
-            data.addEntry(new Entry(data.getDataSetByIndex(1).getEntryCount(), event.values[1]), 1);
-            data.addEntry(new Entry(data.getDataSetByIndex(2).getEntryCount(), event.values[2]), 2);
 
             //After adding
             data.notifyDataChanged();
-            magneticFieldChart.notifyDataSetChanged();
-            magneticFieldChart.setVisibleXRangeMaximum(100);
-            magneticFieldChart.moveViewToX(data.getEntryCount());
+            lightPowerChart.notifyDataSetChanged();
+            lightPowerChart.setVisibleXRangeMaximum(100);
+            lightPowerChart.moveViewToX(data.getEntryCount());
         }
     }
 
