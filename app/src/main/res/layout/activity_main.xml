@@ -38,10 +38,24 @@
 
     </com.github.mikephil.charting.charts.LineChart>
 
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/soundVolumeChart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </com.github.mikephil.charting.charts.LineChart>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onBtnStartClick"
         android:text="Start" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBtnEnableSpeakerClick"
+        android:text="Enable speaker" />
 
 </LinearLayout>
